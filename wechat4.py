@@ -106,11 +106,11 @@ def get_tuling_reponse(msg0):
         fileObject_people.write('my:'+msg0)
         fileObject_people.write('\n')
         fileObject_people.close()
-        if res['results'][0]['values']['text'] == '亲爱的，当天请求次数已用完。':
+        if res['results'][0]['values']['text'] == '当日请求次数超限！':
             break
         else:
             return res['results'][0]['values']['text']
-        return '当日1500次已用完'
+    return '当日500次已用完'
 
 def color_func(word, font_size, position, orientation, random_state=None, **kwargs):
     """
@@ -231,9 +231,10 @@ def simple_reply(msg):
       content = msg['Content']  ##返回文本信息内容
       returnContent = get_tuling_reponse(content)
       returnContent = '[TL]'+returnContent
-      if returnContent == '[TL]当日1500次已用完':
+      if returnContent == '[TL]当日500次已用完':
           returnContent = baidu_ai_robot(content)
           returnContent = '[BD]'+returnContent
+          return returnContent
       else:
           return returnContent
 
